@@ -1,0 +1,349 @@
+// Apple HIG Inspired Theming for secQ
+
+// 1. Color Palette overrides
+$primary: #c0ff00;
+$body-bg: #F5F5F7;
+$body-color: #1D1D1F;
+$text-muted: #86868B;
+$surface-bg: #FFFFFF;
+
+// Semantic Colors (Apple standard)
+$danger: #FF3B30;
+$warning: #FF9500;
+$success: #34C759;
+$info: #007AFF; // Standard iOS Blue
+$medium-yellow: #FFCC00;
+
+// Typography (Native System Stack)
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+$headings-font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+$headings-font-weight: 600;
+
+// Import Bootstrap
+@import "bootstrap/scss/bootstrap";
+
+// Global Layout
+body {
+  background-color: $body-bg;
+  color: $body-color;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// 2. Mixins and Utilities (Soft Drop Shadows, Squircles)
+.apple-card {
+  background: rgba(255, 255, 255, 1);
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  }
+}
+
+// 24px Squircle Card
+.squircle-card {
+  background: #FFFFFF;
+  border: none;
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+}
+
+// Apple Segmented Control
+.apple-segmented-control {
+  background: #EFEFF0;
+  border-radius: 10px;
+  padding: 4px;
+  display: flex;
+  margin-bottom: 1.5rem;
+
+  .segment-btn {
+    flex: 1;
+    text-align: center;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #86868B;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &.active {
+      background: #FFFFFF;
+      color: #1D1D1F;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      font-weight: 600;
+    }
+  }
+}
+
+// Custom Input Focus (Glow)
+.apple-input {
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+  padding: 0.8rem 1rem;
+  background-color: #F5F5F7;
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(192, 255, 0, 0.4);
+    border-color: #c0ff00;
+    background-color: #FFFFFF;
+  }
+}
+
+// Haptic Button Transition
+.apple-btn-haptic {
+  border-radius: 12px;
+  transition: transform 0.15s ease, background-color 0.2s ease;
+  font-weight: 600;
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+// Replace generic cards
+.card {
+  @extend .apple-card;
+}
+
+// 3. Components
+
+// Buttons
+.btn {
+  border-radius: 12px;
+  border: none !important;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  transition: transform 0.1s ease, opacity 0.2s ease, background-color 0.2s ease;
+  
+  &:active {
+    transform: scale(0.96) !important; // Haptic feedback mimic
+  }
+  
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(192, 255, 0, 0.4) !important;
+  }
+}
+
+.btn-primary {
+  background-color: $primary !important;
+  color: #000 !important;
+  
+  &:hover {
+    background-color: darken($primary, 5%) !important;
+  }
+}
+
+.btn-outline-secondary {
+  background-color: $surface-bg !important;
+  color: $body-color !important;
+  border: 1px solid rgba(0,0,0,0.05) !important;
+  
+  &:hover {
+    background-color: rgba(0,0,0,0.02) !important;
+  }
+}
+
+// Navbar (Translucent Apple Material)
+.apple-navbar {
+  background: rgba(192, 255, 0, 0.9) !important; // $primary background
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 0.5rem 0;
+
+  .apple-nav-link {
+    color: rgba(0, 0, 0, 0.6) !important;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+    border-radius: 8px;
+    padding: 0.5rem 0.8rem !important;
+
+    &:hover {
+      color: #000 !important;
+      background-color: rgba(0,0,0,0.05);
+    }
+
+    &.active {
+      color: #000 !important;
+      background-color: rgba(0, 0, 0, 0.08); // Subtle dark accent background
+    }
+  }
+}
+
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  font-family: $headings-font-family;
+  color: $body-color;
+  letter-spacing: -0.02em; // Apple style tight tracking on headers
+}
+
+// Inputs and Forms
+.form-control {
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  border-radius: 12px !important;
+  background: #FFFFFF !important;
+  font-weight: 400;
+  color: $body-color !important;
+  padding: 0.75rem 1rem;
+  box-shadow: none !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus {
+    border-color: $primary !important;
+    box-shadow: 0 0 0 3px rgba(192, 255, 0, 0.2) !important;
+  }
+}
+
+.form-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: $body-color;
+}
+
+// Alerts
+.alert {
+  border: none !important;
+  border-radius: 16px;
+  font-weight: 500;
+}
+.alert-success { 
+  background: rgba(52, 199, 89, 0.1) !important; 
+  color: darken($success, 15%) !important; 
+}
+.alert-danger { 
+  background: rgba(255, 59, 48, 0.1) !important; 
+  color: darken($danger, 15%) !important; 
+}
+
+// Accordion (Vulnerability Library)
+.accordion {
+  --bs-accordion-bg: transparent;
+  --bs-accordion-border-width: 0;
+  --bs-accordion-btn-focus-box-shadow: none;
+}
+
+.accordion-item {
+  background-color: $surface-bg !important;
+  border-radius: 20px !important;
+  border: none !important;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03) !important;
+  margin-bottom: 1rem;
+  overflow: hidden;
+
+  .accordion-button {
+    font-weight: 600;
+    color: $body-color !important;
+    padding: 1.25rem 1.5rem;
+    
+    &:not(.collapsed) {
+      background-color: transparent !important;
+      box-shadow: none;
+    }
+  }
+  
+  .accordion-body {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+  }
+}
+
+// Severity Badges (Apple Semantic Colors)
+.badge {
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.75rem;
+  border: none;
+}
+
+.badge-critical { background-color: rgba(255, 59, 48, 0.15) !important; color: $danger !important; }
+.badge-high     { background-color: rgba(255, 149, 0, 0.15) !important; color: $warning !important; }
+.badge-medium   { background-color: rgba(255, 204, 0, 0.2) !important; color: darken($medium-yellow, 15%) !important; }
+.badge-low      { background-color: rgba(52, 199, 89, 0.15) !important; color: $success !important; }
+.badge-info-sev { background-color: rgba(0, 122, 255, 0.1) !important; color: $info !important; }
+
+// Scan Card Thumbnail (History)
+.scan-card .thumbnail-preview {
+  width: 100%;
+  height: 120px;
+  background: $body-bg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(0,0,0,0.03);
+  
+  img {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    background: #fff;
+  }
+}
+
+// Score Bar 
+.score-track {
+  background: rgba(0,0,0,0.05);
+  height: 6px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.score-fill {
+  height: 100%;
+  border-radius: 4px;
+  // Note: background color is set inline dynamically
+}
+
+// Table
+.table {
+  background-color: transparent;
+  th, td {
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    color: $body-color;
+    padding: 1rem 0.5rem;
+    vertical-align: middle;
+  }
+  thead th {
+    font-weight: 600;
+    color: $text-muted;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+}
+
+// Links
+a, .ref-link {
+  color: $info;
+  text-decoration: none;
+  font-weight: 500;
+  
+  &:hover {
+    color: darken($info, 10%);
+    text-decoration: underline;
+  }
+}
+
+// Syntax Highlighting Overrides
+pre {
+  border-radius: 12px !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1) !important;
+  background: #1E1E1E !important; 
+  padding: 1rem !important;
+}
+
+// Helper classes to remove previously used generic styles
+.glass-panel {
+  // We're overriding this legacy class to match the new apple-card style
+  @extend .apple-card;
+  background: $surface-bg !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
